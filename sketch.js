@@ -1,99 +1,47 @@
-var horacio, horacioImagem;
-var osmusquitotapicando;
-var verona;
-var backiardigans;
-var parker;
-var venom;
-var stark;
-var roger;
-var baner;
-var lang;
-var fury;
-var roads;
-var rocket;
+var sea,ship;
+var seaImg,shipImg;
 
 function preload(){
-  horacioImagem = loadAnimation("trex1.png","trex3.png","trex4.png");
-  verona = loadImage("ground2.png");
-  venom=loadImage("cloud.png");
-  stark=loadImage("obstacle1.png");
-  roger=loadImage("obstacle2.png");
-  baner=loadImage("obstacle3.png");
-  lang=loadImage("obstacle4.png");
-  fury=loadImage("obstacle5.png");
-  roads=loadImage("obstacle6.png");
+  // Descomente o código para adicionar animação ao navio
+
+  shipImg1 = loadAnimation("ship-1.png");
+  //shipImg1 = loadAnimation("ship-1.png");
+  //shipImg1 = loadAnimation("ship-1");
+  //shipImg1 = loadAnimation("ship-1.png","ship-2.png","ship-1.png","ship-2.png");
+  //shipImg1 = loadAnimation("ship-1","ship-2","ship-1","ship-2");
+  
+  seaImg = loadImage("sea.png");
 }
 
 function setup(){
-createCanvas(600,200);
-  osmusquitotapicando = createSprite(200,180,400,20);
-  osmusquitotapicando.addImage(verona);
-  osmusquitotapicando.x = width/2;
-  horacio = createSprite(50,160,20,50);
-  horacio.addAnimation("correndo", horacioImagem);
-  horacio.scale = 0.5;
-  backiardigans = createSprite(200,190,400,10);
-  backiardigans.visible = false;
-  borda = createEdgeSprites();
-  rocket=0;
-  //var numero = Math.round(random(1,100));
-  //console.log(numero);
+  createCanvas(400,400);
+  background("blue");
+
+  // Movendo o fundo
+  sea=createSprite(400,200);
+  sea.addImage(seaImg);
+  sea.velocityX = -5;
+  sea.scale=0.3;
+
+  
+  ship = createSprite(130,200,30,30);
+  ship.addAnimation("movingShip",shipImg1);
+  ship.scale =0.25;
+  
 }
 
-function draw(){
-background("#282828");
-//console.log(horacio.y);
-  osmusquitotapicando.velocityX = -2;
-if(osmusquitotapicando.x<0){
-  osmusquitotapicando.x = width/2;
-}
+function draw() {
+  background(0);
+  sea.velocityX = -3;
 
-if(keyDown("space")&&horacio.y>=150){
-  horacio.velocityY = -12;
-}
-
-  horacio.velocityY = horacio.velocityY + 1;
-  horacio.collide(backiardigans);
-  gerador();
-  strange();
-drawSprites();
-text("pontos da tua vida="+rocket,450,50);
-rocket+=Math.round(frameCount/60);
-}
-
-function gerador(){
-if(frameCount%60===0){
-  parker = createSprite(600,100,40,10);
-  parker.addImage(venom);
-  parker.y=Math.round(random(5,120));
-  parker.velocityX = -3;
-  parker.depth = horacio.depth;
-  horacio.depth+=1;
-  parker.lifetime = 300;
-}}
-function strange(){
-if(frameCount%60===0){
-  var doctor=createSprite(600,165,10,40);
-  doctor.velocityX=-6;
-  var thanos=Math.round(random(1,6));
-  switch (thanos) {
-    case 1:doctor.addImage(stark);
-      break;
-  case 2:doctor.addImage(roger);
-  break;
-  case 3:doctor.addImage(baner);
-  break;
-  case 4:doctor.addImage(lang);
-  break;
-  case 5:doctor.addImage(fury);
-  break;
-  case 6:doctor.addImage(roads);
-  break;
-    default:
-      break;
+  // Descomente o código para redefinir o fundo
+  if(sea.x < 0){
+    //sea.x = 0;
+    //sea.x = sea.width;
+    //sea.x = sea.width/8;
+    //sea.y = height;
   }
-  doctor.scale=0.5;
-  doctor.lifetime=300;
-}
-}
 
+ 
+  drawSprites();
+}
